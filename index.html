@@ -51,6 +51,32 @@
 			</div>
 		</div>
 		<div class="container">
+			<label class="title">5 - Use Month and Year as initial value only?</label>
+			<label class="description">If true, the Month and Year are going to be used as initial value and everything after that date is going to be summed. If false, the range is set to 1 month <i>(day 1 to day 31)</i>.</label>
+			<br>
+			<div style="display: flex">
+				<label class="title">FALSE</label>
+				<label class="switch">
+				  <input id="all_time" type="checkbox" onclick="generate()">
+				  <span class="slider"></span>
+				</label>
+				<label class="title">TRUE</label>
+			</div>
+		</div>
+		<div class="container">
+			<label class="title">6 - Send audition file?</label>
+			<label class="description">If true, an audition file with all sanctions data will be submitted.</label>
+			<br>
+			<div style="display: flex">
+				<label class="title">FALSE</label>
+				<label class="switch">
+				  <input id="debug_data" type="checkbox" onclick="generate()">
+				  <span class="slider"></span>
+				</label>
+				<label class="title">TRUE</label>
+			</div>
+		</div>
+		<div class="container">
 			<label class="title">Command result</label>
 			<label class="description" id="size">2000 characters left</label>
 			<p align="right" style="margin: 0"><button id="copy" onclick="copy()" style="border-radius: 3px 3px 0 0;">Copy to clipboard</button></p>
