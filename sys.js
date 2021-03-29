@@ -73,7 +73,7 @@ function extract_forum_data(countryCode)
 		.then(body => {
 			for (let member of body)
 				if (member[3] == countryCode)
-					newField("nicknames", '', member[1]+member[2]);
+					newField("nicknames", '', member[1] + "#" + member[2]);
 		})
 		.then(body => generate())
 }
@@ -155,8 +155,8 @@ function generate()
 
 	result.value = cmdStr;
 
-	let resulten = (2000 - result.value.length);
-	size.innerHTML = (resulten < 0 ? "<font color=\"#FC4646\">" : '') + resulten + " characters left.";
+	let resultLen = (2000 - result.value.length);
+	size.innerHTML = (resultLen < 0 ? "<font color=\"#FC4646\">" : '') + resultLen + " characters left.";
 }
 
 function copy()
