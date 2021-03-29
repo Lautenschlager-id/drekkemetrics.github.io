@@ -6,7 +6,7 @@ let valueField = { }
 let date = new Date();
 let currentYear = date.getFullYear(), currentMonth = date.getMonth()+1;
 
-let copyButton, monthYear, displayMembers, result;
+let size, copyButton, monthYear, displayMembers, result;
 
 function newField(divName, description, value)
 {
@@ -65,14 +65,14 @@ function extract_forum_nicknames(body)
 	return [...body.matchAll(/(\w+)<span class="font-s couleur-hashtag-pseudo"> #(\d+)<\/span>.+?"\/img\/pays\/(..)\.png"/g)].sort();
 }
 
-function extract_forum_data()
+function extract_forum_data(countryCode)
 {
 	fetch(forum_url)
 		.then(body => body.text())
 		.then(body => extract_forum_nicknames(body))
 		.then(body => {
 			for (let member of body)
-				if (member[4] == "br")
+				if (member[3] == countryCode)
 					newField("nicknames", '', member[1]+member[2]);
 		})
 		.then(body => generate())
@@ -154,6 +154,9 @@ function generate()
 		cmdStr += ` members=${displayMembers.checked}`;
 
 	result.value = cmdStr;
+
+	let resulten = (2000 - result.value.length);
+	size.innerHTML = (resulten < 0 ? "<font color=\"#FC4646\">" : '') + resulten + " characters left.";
 }
 
 function copy()
@@ -171,6 +174,7 @@ window.onload = function()
 	document.getElementById("add_nickname").click();
 	populateMonthAndYear();
 
+	size = document.getElementById("size");
 	copyButton = document.getElementById("copy");
 	monthYear = document.getElementById("month_year");
 	displayMembers = document.getElementById("display_members");

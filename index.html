@@ -16,7 +16,7 @@
 				<div>
 					<button id="add_nickname" onclick="newField('nicknames', 'Nickname')" type="action">+</button>
 					<button onclick="delField('nicknames')" type="action">‒</button>
-					<button onclick="extract_forum_data()" type="action"><img src="https://atelier801.com/img/pays/br.png"/></button>
+					<button onclick="extract_forum_data('br')" type="action"><img src="https://atelier801.com/img/pays/br.png"/></button>
 				</div>
 				<div id="nicknames" class="align-center"></div>
 			</div>
@@ -52,8 +52,9 @@
 		</div>
 		<div class="container">
 			<label class="title">Command result</label>
+			<label class="description" id="size">2000 characters left</label>
 			<p align="right" style="margin: 0"><button id="copy" onclick="copy()" style="border-radius: 3px 3px 0 0;">Copy to clipboard</button></p>
-			<textarea id="result" style="margin-top:0; border-radius: 4px 0 4px 4px;" readonly></textarea>
+			<textarea id="result" style="margin-top:0; border-radius: 4px 0 4px 4px; height: 400px" readonly></textarea>
 		</div>
 		<p align="center"><a href="https://lautenschlager-id.github.io/" target="_blank" style="text-decoration: none;"><label style="font-size: 1.5em; color: #EEEEEE;">By Lautenschlager.id</label></a></p>
 	</body>
