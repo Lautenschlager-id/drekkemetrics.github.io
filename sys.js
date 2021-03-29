@@ -133,7 +133,7 @@ function generate()
 {
 	copyButton.innerHTML = "Copy to clipboard";
 
-	let cmdStr = "!modo ";
+	let cmdStr = "/modo ";
 	cmdStr += `nick=[${getNicknameList()}]`;
 
 	let patternsList = getPatternList();
