@@ -77,7 +77,7 @@
 			</div>
 		</div>
 		<div class="container">
-			<label class="title">7 - Filter Warnings?</label>
+			<label class="title">7 - Filter Handled Reports?</label>
 			<label class="description">If true, handled reports are going to be displayed in the filter. They do not sum with sanctions. Use the type <b>#handledreport</b>.</label>
 			<br>
 			<div style="display: flex">
@@ -90,7 +90,20 @@
 			</div>
 		</div>
 		<div class="container">
-			<label class="title">8 - Send audition file?</label>
+			<label class="title">8 - Filter Moderated Messages?</label>
+			<label class="description">If true, moderated and deleted messages are going to be displayed in the filter. They do not sum with sanctions. Use the types <b>#moderatedmessage</b> and <b>#deletedmessage</b>.</label>
+			<br>
+			<div style="display: flex">
+				<label class="title">FALSE</label>
+				<label class="switch">
+				  <input id="message" type="checkbox" onclick="generate()" checked>
+				  <span class="slider"></span>
+				</label>
+				<label class="title">TRUE</label>
+			</div>
+		</div>
+		<div class="container">
+			<label class="title">9 - Send audition file?</label>
 			<label class="description">If true, an audition file with all sanctions data will be submitted.</label>
 			<br>
 			<div style="display: flex">

@@ -6,7 +6,7 @@ let valueField = { }
 let date = new Date();
 let currentYear = date.getFullYear(), currentMonth = date.getMonth()+1;
 
-let size, copyButton, monthYear, displayMembers, allTime, warn, report, debugData, result;
+let size, copyButton, monthYear, displayMembers, allTime, warn, report, message, debugData, result;
 
 function newField(divName, description, value)
 {
@@ -166,6 +166,9 @@ function generate()
 	if (!report.checked)
 		cmdStr += ` report=${report.checked}`;
 
+	if (!message.checked)
+		cmdStr += ` message=${message.checked}`;
+
 	if (debugData.checked)
 		cmdStr += ` debug=${debugData.checked}`;
 
@@ -197,6 +200,7 @@ window.onload = function()
 	allTime = document.getElementById("all_time");
 	warn = document.getElementById("warn");
 	report = document.getElementById("report");
+	message = document.getElementById("message");
 	debugData = document.getElementById("debug_data");
 	result = document.getElementById("result");
 }
