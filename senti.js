@@ -36,6 +36,8 @@ function newField(divName, description, value)
 					<option value="profile">profile</option>
 					<option value="report">report</option>
 					<option value="warn">warn</option>
+					<option value="moderatedmessage">moderatedmessage</option>
+					<option value="deletedmessage">deletedmessage</option>
 					<option value="handledreport">handledreport</option>
 				</select>
 			</div>`;
