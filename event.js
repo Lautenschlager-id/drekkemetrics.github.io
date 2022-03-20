@@ -89,18 +89,6 @@ function checkNicknameTag(e)
 	return e;
 }
 
-function getNicknameList()
-{
-	let nicknamesList = [ ];
-	for (let nickname = 0; nickname <= valueField["nicknames"]; nickname++)
-	{
-		let value = document.getElementById("nicknames_" + nickname).value.trim();
-		if (value)
-			nicknamesList.push(checkNicknameTag(capitalizedStr(value)));
-	}
-	return nicknamesList.join(',');
-}
-
 function getCustomFieldInput(divName)
 {
 	let customFieldList = [ ];
