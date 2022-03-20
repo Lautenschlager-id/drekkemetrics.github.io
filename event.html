@@ -1,0 +1,283 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Event Resource Request Generator</title>
+		<link rel="icon" type="image/png" href="wheel.png"/>
+		<meta http-equiv="cache-control" content="no-cache" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<link rel="stylesheet" type="text/css" href="style.css" />
+		<script src="event.js" type="text/javascript"></script>
+	</head>
+	<body>
+		<div class="container">
+			<label class="title">Request type.</label>
+			<label class="description">Select the request type that you will be posting.</label>
+			<div style="display: flex">
+				<select id="request_type" oninput="buildForm();generate()">
+					<option value="list">List rewards / needs</option>
+					<option value="create">Create new module</option>
+					<option value="start">Start event</option>
+					<option value="end">End event</option>
+					<option value="credit">Gift project members</option>
+				</select>
+			</div>
+		</div>
+		<div class="container">
+			<label class="title">Module name.</label>
+			<div class="container sub-container">
+				<div class="align-items-center">
+					<label class="title">#evt_&nbsp;</label>
+					<textarea id="module_name" oninput="checkPattern(this, '[^a-z_]+');generate()" placeholder="christmas_noobs" minlength="3" maxlength="20" required></textarea>
+				</div>
+			</div>
+		</div>
+		<div id="form_create" hidden>
+			<div class="container">
+				<label class="title">Host member name.</label>
+				<label class="description">The module team member name that will be in charge of launching the module.</label>
+				<textarea id="host_name" oninput="checkPattern(this, '[^\\w_\\+#]+');generate()" placeholder="Bolodefchoco#0015" maxlength="25" required></textarea>
+			</div>
+		</div>
+		<div id="form_start" hidden>
+			<div class="container">
+				<label class="title">Steam announcement.</label>
+				<label class="description">A draft for the steam announcement of the event.</label>
+				<textarea id="steam_draft" oninput="generate()"></textarea>
+			</div>
+		</div>
+		<div id="form_end" hidden>
+			<div class="container">
+				<label class="title">Module level.</label>
+				<label class="description">Select the module level to be left at when the event ends.</label>
+				<div style="display: flex">
+					<select id="module_level" oninput="generate()">
+						<option value="**Disabled** (**3**)">Disabled</option>
+						<option value="**Normal/Semi-official** (**0**)">Playable in tribe houses</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div id="form_credit" hidden>
+			<div class="container">
+				<label class="title">The prize to be gifted.</label>
+				<label class="description">Input the /dressing shop item ID or the amount of fraises to be given.<br>You can only pick items (shaman items not available) that get released because of your event.</label>
+				<div class="container sub-container">
+					<div style="display: flex">
+						<div class="square" style="background-color: #7289DA;"></div>
+						<textarea id="gift_value" oninput="checkPattern(this, '[^\\d]+');generate()" placeholder="/dressing's 666" style="border-radius: 0px;"></textarea>
+						<select id="gift_type" oninput="generate()">
+							<option value="item">Shop Item</option>
+							<option value="fraise">Fraise</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<label class="title">Members in the project to receive a prize.</label>
+				<label class="description">Describe the nicknames of the members to receive the prize, as well as their paper in the project development.</label>
+				<div class="container sub-container">
+					<div>
+						<button onclick="addCustomField('gift_nicknames', 'Nickname')" type="action">+</button>
+						<button onclick="delCustomField('gift_nicknames')" type="action">‒</button>
+					</div>
+					<div id="custom_gift_nicknames" types="Coder,Artist,Conceptor,Flash Artist,Mapper,Translator,Other"></div>
+				</div>
+			</div>
+		</div>
+		<div id="form_list" hidden>
+			<div>
+				<div class="container">
+					<label class="title">Does the event has a title reward?</label>
+					<br>
+					<div class="align-items-center">
+						<label class="title">NO&nbsp;</label>
+						<label class="switch">
+						  <input id="has_titles" type="checkbox" onclick="toggleDisplay('titles');generate()">
+						  <span class="slider"></span>
+						</label>
+						<label class="title">&nbsp;YES</label>
+					</div>
+				</div>
+				<div class="container" id="div_titles" hidden>
+					<label class="title">Titles given in the event.</label>
+					<label class="description"><a href="https://transformice.fandom.com/wiki/Title" target="_blank" class="link">Existing titles' IDs</a></label>
+					<div class="container sub-container">
+						<div>
+							<button onclick="addCustomField('titles', 'Name or T_ID')" type="action">+</button>
+							<button onclick="delCustomField('titles')" type="action">‒</button>
+						</div>
+						<div id="custom_titles" types="New,Already exists"></div>
+					</div>
+				</div>
+			</div>
+			<div>
+				<div class="container">
+					<label class="title">Does the event has a badge reward?</label>
+					<br>
+					<div class="align-items-center">
+						<label class="title">NO&nbsp;</label>
+						<label class="switch">
+						  <input id="has_badges" type="checkbox" onclick="toggleDisplay('badges');generate()">
+						  <span class="slider"></span>
+						</label>
+						<label class="title">&nbsp;YES</label>
+					</div>
+				</div>
+				<div class="container" id="div_badges" hidden>
+					<label class="title">Badges given in the event.</label>
+					<label class="description"><a href="https://transformice.fandom.com/wiki/Badge" target="_blank" class="link">Existing badges' IDs</a></label>
+					<div class="container sub-container">
+						<div>
+							<button onclick="addCustomField('badges', 'Trello Link or X_ID', 'Profile description (event name)')" type="action">+</button>
+							<button onclick="delCustomField('badges')" type="action">‒</button>
+						</div>
+						<div id="custom_badges" types="New,Already exists"></div>
+					</div>
+				</div>
+			</div>
+			<div>
+				<div class="container">
+					<label class="title">Does the event has a Shaman cartouche/orb reward?</label>
+					<br>
+					<div class="align-items-center">
+						<label class="title">NO&nbsp;</label>
+						<label class="switch">
+						  <input id="has_orbs" type="checkbox" onclick="toggleDisplay('orbs');generate()">
+						  <span class="slider"></span>
+						</label>
+						<label class="title">&nbsp;YES</label>
+					</div>
+				</div>
+				<div class="container" id="div_orbs" hidden>
+					<label class="title">Orbs given in the event.</label>
+					<label class="description"><a href="https://transformice.fandom.com/wiki/Cartouche" target="_blank" class="link">Existing cartouches' IDs</a></label>
+					<div class="container sub-container">
+						<div>
+							<button onclick="addCustomField('orbs', 'Trello Link or Cartouche ID')" type="action">+</button>
+							<button onclick="delCustomField('orbs')" type="action">‒</button>
+						</div>
+						<div id="custom_orbs" types="New,Already exists"></div>
+					</div>
+				</div>
+			</div>
+			<div>
+				<div class="container">
+					<label class="title">Does the event offer inventory pets?</label>
+					<br>
+					<div class="align-items-center">
+						<label class="title">NO&nbsp;</label>
+						<label class="switch">
+						  <input id="has_pets" type="checkbox" onclick="toggleDisplay('pets');generate()">
+						  <span class="slider"></span>
+						</label>
+						<label class="title">&nbsp;YES</label>
+					</div>
+				</div>
+				<div class="container" id="div_pets" hidden>
+					<label class="title">Pets given in the event.</label>
+					<label class="description"><a href="https://transformice.fandom.com/wiki/Pet" target="_blank" class="link">Existing pet' IDs</a></label>
+					<div class="container sub-container">
+						<div>
+							<button onclick="addCustomField('pets', 'Trello Link or Pet ID')" type="action">+</button>
+							<button onclick="delCustomField('pets')" type="action">‒</button>
+						</div>
+						<div id="custom_pets" types="New,Already exists"></div>
+					</div>
+				</div>
+			</div>
+			<div>
+				<div class="container">
+					<label class="title">Does the event offer inventory skins/costumes?</label>
+					<br>
+					<div class="align-items-center">
+						<label class="title">NO&nbsp;</label>
+						<label class="switch">
+						  <input id="has_skins" type="checkbox" onclick="toggleDisplay('skins');generate()">
+						  <span class="slider"></span>
+						</label>
+						<label class="title">&nbsp;YES</label>
+					</div>
+				</div>
+				<div class="container" id="div_skins" hidden>
+					<label class="title">Skins given in the event.</label>
+					<label class="description"><a href="https://transformice.fandom.com/wiki/Costume" target="_blank" class="link">Existing costumes' IDs</a></label>
+					<div class="container sub-container">
+						<div>
+							<button onclick="addCustomField('skins', 'Trello Link or Skin ID')" type="action">+</button>
+							<button onclick="delCustomField('skins')" type="action">‒</button>
+						</div>
+						<div id="custom_skins" types="New,Already exists"></div>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<label class="title">Does the event offer an inventory chest?</label>
+				<br>
+				<div class="align-items-center">
+					<label class="title">NO&nbsp;</label>
+					<label class="switch">
+					  <input id="has_chest" type="checkbox" onclick="generate()">
+					  <span class="slider"></span>
+					</label>
+					<label class="title">&nbsp;YES</label>
+				</div>
+			</div>
+			<div class="container">
+				<label class="title">Does the event offer inventory consumables and/or golden tickets/seashells?</label>
+				<br>
+				<div class="align-items-center">
+					<label class="title">NO&nbsp;</label>
+					<label class="switch">
+					  <input id="has_consumables" type="checkbox" onclick="generate()">
+					  <span class="slider"></span>
+					</label>
+					<label class="title">&nbsp;YES</label>
+				</div>
+			</div>
+			<div class="container">
+				<label class="title">Does the event should have an official banner in the login page?</label>
+				<br>
+				<div class="align-items-center">
+					<label class="title">NO&nbsp;</label>
+					<label class="switch">
+					  <input id="has_banner" type="checkbox" onclick="generate()">
+					  <span class="slider"></span>
+					</label>
+					<label class="title">&nbsp;YES</label>
+				</div>
+			</div>
+			<div>
+				<div class="container">
+					<label class="title">Does the event have a NPC to trade golden tickets / seashells?</label>
+					<br>
+					<div class="align-items-center">
+						<label class="title">NO&nbsp;</label>
+						<label class="switch">
+						  <input id="has_npc_items" type="checkbox" onclick="toggleDisplay('npc_items');generate()">
+						  <span class="slider"></span>
+						</label>
+						<label class="title">&nbsp;YES</label>
+					</div>
+				</div>
+				<div class="container" id="div_npc_items" hidden>
+					<label class="title">NPC items.</label>
+					<label class="description"><a href="https://transformice.fandom.com/wiki/Inventory" target="_blank" class="link">See all inventory items' IDs</a></label>
+					<div class="container sub-container">
+						<div>
+							<button onclick="addCustomField('npc_items', 'Item ID', 'Item Price', 'Quantity to earn')" type="action">+</button>
+							<button onclick="delCustomField('npc_items')" type="action">‒</button>
+						</div>
+						<div id="custom_npc_items" types="Seashells,Golden Ticket"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<label class="title">Request text</label>
+			<label class="description" id="size">2000 characters left</label>
+			<p align="right" style="margin: 0"><button id="copy" onclick="copy()" style="border-radius: 3px 3px 0 0;">Copy to clipboard</button></p>
+			<textarea id="result" style="margin-top:0; border-radius: 4px 0 4px 4px; height: 400px" readonly></textarea>
+		</div>
+		<p align="center"><a href="https://lautenschlager-id.github.io/" target="_blank" style="text-decoration: none;"><label style="font-size: 1.5em; color: #EEEEEE;">By Lautenschlager.id</label></a></p>
+	</body>
+</html>

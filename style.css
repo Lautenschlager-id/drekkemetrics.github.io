@@ -14,7 +14,7 @@ body {
 	margin: 0 auto;
 	margin-bottom: 10px;
 	padding: 5px;
-	width: 60%;
+	width: 80%;
 }
 
 .sub-container {
@@ -24,6 +24,11 @@ body {
 
 .align-center {
 	text-align: center;
+}
+
+.align-items-center {
+	display: flex;
+	align-items: center;
 }
 
 .container label {
@@ -58,7 +63,8 @@ body {
 	width: 100%;
 }
 
-.container textarea:required:placeholder-shown:not(:focus) {
+.container textarea:invalid, textarea:required:placeholder-shown:not(:focus)
+ {
 	border-style: solid;
 	border-color: #F04747;
 	border-radius: 0px;
@@ -160,4 +166,14 @@ input:checked + .slider {
 
 input:checked + .slider:before {
 	transform: translateX(34px);
+}
+
+.link
+{
+	color: #1C96CF;
+	text-decoration: none;
+}
+
+.link:hover {
+	font-weight: bolder;
 }
