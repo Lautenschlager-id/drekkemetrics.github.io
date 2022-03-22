@@ -154,18 +154,18 @@ Status: **Disabled** (**3**)`;
 					);
 					badges[v] = `${badges[v][0]} [${badges[v][2]}]${badges[v][1]}`;
 				}
-				badges = badges.join('\n');
+				badges = badges.join('\n+ ');
 			}
 			if (toggles.npc_items.checked)
 			{
 				npc_items = getCustomFieldInput("npc_items");
 				for (let v in npc_items)
-					npc_items[v] = `Get **${npc_items[v][2]}** items of ID '${npc_items[v][0]}' | Pay ${npc_items[v][1]} ${npc_items[v][3]}`;
+					npc_items[v] = `Get ${npc_items[v][2]} items of ID '${npc_items[v][0]}' | Pay ${npc_items[v][1]} ${npc_items[v][3]}`;
 				npc_items = `\`\`\`\n${npc_items.join('\n')}\n\`\`\``;
 			}
 
 			result.value = `<@232581573998804994>[Tig], the Lua event ${f_module_name} needs the following rewards:
-${toggles.titles.checked ? `**Titles**: ${titles}` : ''}
+${toggles.titles.checked ? `**Titles** (put them in the Lua folder of translations): ${titles}` : ''}
 ${toggles.orbs.checked ? `**Shaman Orbs**: ${transformArrayIntoReadableValueAndType(getCustomFieldInput("orbs"))}` : ''}
 ${toggles.badges.checked ? `**Badges**: ${badges}` : ''}
 
