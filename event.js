@@ -118,8 +118,11 @@ function generate()
 {
 	copyButton.innerHTML = "Copy to clipboard";
 
-	let f_module_name = `**#evt_${module_name.value.replace(/^#?evt_/, '')}**`;
-	let f_host_name = `**${capitalizedStr(checkNicknameTag(host_name.value))}**`
+	let raw_module_name = `evt_${module_name.value.replace(/^#?evt_/, '')}`;
+	let raw_host_name = capitalizedStr(checkNicknameTag(host_name.value));
+
+	let f_module_name = `**#${raw_module_name}**`;
+	let f_host_name = `**${raw_host_name}**`
 
 	switch (request_type.value)
 	{
@@ -127,7 +130,22 @@ function generate()
 			result.value = `<@232581573998804994>[Tig], please create this module for the next Lua event!
 Module name: ${f_module_name}
 Attach to the account: ${f_host_name}
-Status: **Disabled** (**3**)`;
+Status: **Disabled** (**3**)
+
+Step by step:
+\`\`\`
+/room* mo-@#${raw_module_name}
+
+/nouveaumodule ${raw_host_name} ${raw_module_name}
+
+Copy paste the line below in your /lua window and submit:
+print(1)
+
+/launchmodule ${raw_module_name}
+
+/moduleofficiel ${raw_module_name} 3
+\`\`\`
+`;
 			break;
 		case "list":
 			let titles, badges, npc_items;
