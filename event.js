@@ -190,7 +190,7 @@ ${toggles.badges.checked ? `**Badges**: ${badges}` : ''}
 ${toggles.pets.checked || toggles.skins.checked || toggles.chest.checked ? "__Inventory__:\n" : ''}
 ${toggles.pets.checked ? `**Pets**: ${transformArrayIntoReadableValueAndType(getCustomFieldInput("pets"))}` : ''}
 ${toggles.skins.checked ? `**Skins**: ${transformArrayIntoReadableValueAndType(getCustomFieldInput("skins"))}` : ''}
-${toggles.chest.checked ? `**Gold ticket**: (\`golden_ticket_50\`) A code that gives 50 golden tickets` : ''}
+${toggles.chest.checked ? `**Golden ticket**: (\`golden_ticket_50\`) A code that gives 50 golden tickets` : ''}
 
 Can you share the codes for these rewards once implemented, please?
 
