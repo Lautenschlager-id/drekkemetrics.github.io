@@ -206,12 +206,24 @@ Module name: ${f_module_name}
 Status: **Event** (**2**)
 Steam announcement draft: \`\`\`
 ${steam_draft.value}
-\`\`\``;
+\`\`\`
+
+Step by step:
+\`\`\`
+/moduleofficiel ${raw_module_name} 2
+\`\`\`
+`;
 			break;
 		case "end":
 			result.value = `<@232581573998804994>[Tig], please disable the Lua event!
 Module name: ${f_module_name}
-Status: ${module_level.value}`;
+Status: ${module_level.value}
+
+Step by step:
+\`\`\`
+/moduleofficiel ${raw_module_name} ${module_level.value.match(/[03]/)}
+\`\`\`
+`;
 			break;
 		case "credit":
 			let header = (
